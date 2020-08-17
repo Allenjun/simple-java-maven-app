@@ -21,9 +21,9 @@ pipeline {
                 }
             }
         }
-        stage('Deliver') { 
+        stage('Deploy') { 
             steps {
-                sh './jenkins/scripts/deliver.sh' 
+                sshPublisher(publishers: [sshPublisherDesc(configName: 'basic server', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: 'java -jar my-app-1.0-SNAPSHOT.jar', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: 'target/', sourceFiles: 'target/my-app-1.0-SNAPSHOT.jar')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
             }
         }
     }
